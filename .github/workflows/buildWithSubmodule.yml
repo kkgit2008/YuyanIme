@@ -103,6 +103,8 @@ jobs:
         run: |
             echo ">>project root:"
             ls -la
+            echo ">>./yuyansdk:"
+            ls -la ./yuyansdk
 
       # 第六步：构建APK
       - name: Build APK for ${{ matrix.flavor }}
