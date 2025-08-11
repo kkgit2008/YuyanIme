@@ -89,7 +89,7 @@ android {
 
     android.applicationVariants.configureEach { variant ->
         variant.outputs.configureEach {
-            outputFileName = "yuyanIme_${versionCodeDate()}_${variant.getProductFlavors()[0].name}_${variant.buildType.name}.apk"   // offline      online
+            outputFileName = "yuyanIme_${variant.getProductFlavors()[0].name}_${variant.buildType.name}.apk"   // offline      online
         }
     }
 }
