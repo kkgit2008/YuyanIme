@@ -117,8 +117,8 @@ jobs:
 
       - name: Show apk paths
         run: |
-            echo ">>${{ env.ANDROID_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
-            ls -la ${{ env.ANDROID_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
+            echo ">>${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
+            ls -la ${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
 
 #/app/build/outputs/apk/offline/release/yuyanIme_${matrix.flavor_type}_${matrix.build_type}.apk
 
@@ -134,7 +134,7 @@ jobs:
       # 第八步：复制APK文件
       - name: Copy ${{ matrix.flavor }} APK
         run: |
-          src_file="${{ env.ANDROID_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/*.apk"
+          src_file="${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/*.apk"
           #dest_file="./"
 
           if [ -f "$src_file" ]; then
