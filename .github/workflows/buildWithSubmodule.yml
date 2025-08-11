@@ -28,10 +28,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      # 矩阵功能，为每个包构建
-      matrix:
-        flavor: [ debug, release ]
+#    strategy:
+#      # 矩阵功能，为每个包构建
+#      matrix:
+#        flavor: [ debug, release ]
 
     steps:
       - name: Cancel previous runs
