@@ -4,7 +4,8 @@ plugins {
 }
 
 android {
-    compileSdk 35
+    //compileSdk 35
+    compileSdk 34
     defaultConfig {
         applicationId "com.yuyan.pinyin"
         minSdk 23
