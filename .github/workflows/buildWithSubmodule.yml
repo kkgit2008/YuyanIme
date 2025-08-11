@@ -99,6 +99,11 @@ jobs:
         # working-directory: ${{ env.MAIN_REPO_DIR }}
         run: chmod +x gradlew
 
+      - name: Show project root
+        run: |
+            echo ">>project root:"
+            ls -la
+
       # 第六步：构建APK
       - name: Build APK for ${{ matrix.flavor }}
         # working-directory: ${{ env.MAIN_REPO_DIR }}
