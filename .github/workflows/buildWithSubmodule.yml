@@ -21,7 +21,7 @@ env:
 
   MAIN_REPO_DIR: '.'
   # 将当前仓库检出到临时仓库的目录
-  SUBMODULE_DIR: '.'
+  SUBMODULE_DIR: './yuyansdk'
   # 将外部仓库检出到临时仓库的目录>
 
 jobs:
