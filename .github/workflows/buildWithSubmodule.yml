@@ -28,10 +28,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-#    strategy:
-#      # 矩阵功能，为每个包构建
-#      matrix:
-#        flavor: [ debug, release ]
+    strategy:
+      # 矩阵功能
+      matrix:
+#        build_type: ['debug', 'release']
+        build_type: ['release']
+        flavor_type: [ offline, online ]
 
     steps:
       - name: Cancel previous runs
@@ -100,7 +102,17 @@ jobs:
       # 第六步：构建APK
       - name: Build APK for ${{ matrix.flavor }}
         # working-directory: ${{ env.MAIN_REPO_DIR }}
-        run: ./gradlew app_flavor:${{ matrix.flavor }}:assembleRelease
+        run: |
+          build_type=${{ matrix.build_type }}
+          flavor_type=${{ matrix.flavor_type }}
+          ./gradlew assemble${flavor_type^}${build_type^}
+
+      - name: Show apk paths
+        run: |
+            echo ">>${{ env.ANDROID_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
+            ls -la ${{ env.ANDROID_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
+
+#/app/build/outputs/apk/offline/release/yuyanIme_${matrix.flavor_type}_${matrix.build_type}.apk
 
       # 第七步：获取版本信息
       - name: Get release TAG_VERSION_NAME
@@ -114,13 +126,13 @@ jobs:
       # 第八步：复制APK文件
       - name: Copy ${{ matrix.flavor }} APK
         run: |
-          src_file="${{ env.MAIN_REPO_DIR }}/build/app_flavor-${{ matrix.flavor }}/outputs/apk/release/${{ matrix.flavor }}-release-unsigned-unzipaligned-unsigned.apk"
-          dest_file="${{ env.MAIN_REPO_DIR }}/${{ matrix.flavor }}-release-unzipaligned-unsigned.apk"
+          src_file="${{ env.ANDROID_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/*.apk"
+          #dest_file="./"
 
           if [ -f "$src_file" ]; then
-            cp "$src_file" "$dest_file"
+            cp "$src_file" ./
             echo ">>APK已复制并重命名为: $dest_file"
-            ls -la "$dest_file"
+            ls -la
           else
             echo ">>错误: 未找到APK文件: $src_file"
             exit 1
@@ -132,7 +144,7 @@ jobs:
         with:
           name: AIDE-release-${{ matrix.flavor }}.apk
           path: |
-            ${{ env.MAIN_REPO_DIR }}/${{ matrix.flavor }}-release-unzipaligned-unsigned.apk
+            ${{ env.MAIN_REPO_DIR }}/yuyanIme_${matrix.flavor_type}_${matrix.build_type}.apk
 
       # 第十步：发布到GitHub Release
       - name: Publish Release
