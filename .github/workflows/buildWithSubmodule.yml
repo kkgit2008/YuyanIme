@@ -105,6 +105,7 @@ jobs:
             ls -la
             echo ">>./yuyansdk:"
             ls -la ./yuyansdk
+            exit 1
 
       # 第六步：构建APK
       - name: Build APK for ${{ matrix.flavor }}
