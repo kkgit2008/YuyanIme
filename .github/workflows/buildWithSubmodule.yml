@@ -125,7 +125,11 @@ jobs:
         # working-directory: ${{ env.MAIN_REPO_DIR }}
         id: get_version_info
         run: |
-          TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" build.gradle.kts | awk '{print $4}' | tr -d '"')
+          if [ -f "$src_file" ]; then
+            TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" build.gradle | awk '{print $4}' | tr -d '"')
+          else
+            TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" ${{ env.MAIN_REPO_DIR }}/app/build.gradle | awk '{print $4}' | tr -d '"')
+          fi
           echo ">>TAG_VERSION_NAME=${TAG_VERSION_NAME}" >> $GITHUB_ENV
           echo ">>当前版本: ${TAG_VERSION_NAME}"
 
