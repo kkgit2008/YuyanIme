@@ -108,7 +108,7 @@ jobs:
 #            exit 1
 
       # 第六步：构建APK
-      - name: Build APK for ${{ matrix.flavor }}
+      - name: Build APK for ${{ matrix.flavor_type }}
         # working-directory: ${{ env.MAIN_REPO_DIR }}
         run: |
           build_type=${{ matrix.build_type }}
