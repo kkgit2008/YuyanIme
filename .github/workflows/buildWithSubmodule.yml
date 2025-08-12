@@ -170,7 +170,7 @@ jobs:
             exit 1
           fi
 
-      # 第八步：复制sha256文件
+      # 复制sha256文件
       - name: Copy ${{ matrix.flavor }} APK.sha256
         run: |
           src_file="${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256"
