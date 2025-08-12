@@ -54,6 +54,7 @@ jobs:
           path: ${{ env.MAIN_REPO_DIR }}
           submodules: true
 
+
       # 第二步：检出依赖仓库 (username/repo2@branch2)
       - name: Checkout sub Repository
         uses: actions/checkout@v4
@@ -84,6 +85,8 @@ jobs:
           fi
           
           echo ">>目录结构验证通过"
+
+
 
       # 第四步：设置JDK环境
       - name: set up JDK 21
