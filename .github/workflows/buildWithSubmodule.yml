@@ -14,7 +14,7 @@ env:
 
   MAIN_REPO_BRANCH: 'kkgit2008-patch-1'
   # 当前仓库分支
-  DEPENDENCY_REPO_BRANCH: 'kkgit2008-patch-1'
+  DEPENDENCY_REPO_BRANCH: 'master'
   # 外部仓库分支
 
   MAIN_REPO_DIR: '.'
@@ -44,6 +44,7 @@ jobs:
       - name: Clean workspace
         run: |
           rm -rf ${{ env.MAIN_REPO_DIR }}/*
+          exit 1
 
       # 第一步：检出主仓库 (username/repo@branch)
       - name: Checkout Main Repository
@@ -80,7 +81,7 @@ jobs:
           CURRENT_DEP_BRANCH=$(git branch --show-current)
           if [ "$CURRENT_DEP_BRANCH" != "$DEPENDENCY_REPO_BRANCH" ]; then
             echo ">>错误：依赖仓库分支不匹配！预期: $DEPENDENCY_REPO_BRANCH，实际: $CURRENT_DEP_BRANCH"
-            exit 1
+#            exit 1
           fi
           
           echo ">>目录结构验证通过"
@@ -126,7 +127,7 @@ jobs:
             ls -la ./app/build/outputs/apk/${{ matrix.flavor_type }}
             echo ">>./app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
             ls -la ./app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
-#            exit 1
+            exit 1
 
       # 第七步：获取版本信息（使用当前时间作为版本号）
       - name: Set release TAG_VERSION_NAME
