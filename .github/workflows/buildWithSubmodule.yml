@@ -98,7 +98,17 @@ jobs:
         # working-directory: ${{ env.MAIN_REPO_DIR }}
         run: chmod +x gradlew
 
-      - name: Show project root
+#./app/build/outputs/apk/offline/release/yuyanIme_offline_release.apk
+
+      # 第六步：构建APK
+      - name: Build APK for ${{ matrix.flavor_type }}
+        # working-directory: ${{ env.MAIN_REPO_DIR }}
+        run: |
+          build_type=${{ matrix.build_type }}
+          flavor_type=${{ matrix.flavor_type }}
+          ./gradlew assemble${flavor_type^}${build_type^}
+
+      - name: Show project paths
         run: |
             echo ">>project root:"
             ls -la
@@ -112,21 +122,11 @@ jobs:
             ls -la ./app/build/outputs
             echo ">>./app/build/outputs/apk:"
             ls -la ./app/build/outputs/apk
-            echo ">>./app/build/outputs/apk/offline:"
-            ls -la ./app/build/outputs/apk/offline
-            echo ">>./app/build/outputs/apk/offline/release:"
-            ls -la ./app/build/outputs/apk/offline/release
-            exit 1
-
-#./app/build/outputs/apk/offline/release/yuyanIme_offline_release.apk
-
-      # 第六步：构建APK
-      - name: Build APK for ${{ matrix.flavor_type }}
-        # working-directory: ${{ env.MAIN_REPO_DIR }}
-        run: |
-          build_type=${{ matrix.build_type }}
-          flavor_type=${{ matrix.flavor_type }}
-          ./gradlew assemble${flavor_type^}${build_type^}
+            echo ">>./app/build/outputs/apk/${{ matrix.flavor_type }}:"
+            ls -la ./app/build/outputs/apk/${{ matrix.flavor_type }}
+            echo ">>./app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
+            ls -la ./app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
+#            exit 1
 
       - name: Show apk paths
         run: |
