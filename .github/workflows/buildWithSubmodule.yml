@@ -104,7 +104,21 @@ jobs:
             ls -la
             echo ">>./yuyansdk:"
             ls -la ./yuyansdk
-#            exit 1
+            echo ">>./app:"
+            ls -la ./app
+            echo ">>./app/build:"
+            ls -la ./app/build
+            echo ">>./app/build/outputs:"
+            ls -la ./app/build/outputs
+            echo ">>./app/build/outputs/apk:"
+            ls -la ./app/build/outputs/apk
+            echo ">>./app/build/outputs/apk/offline:"
+            ls -la ./app/build/outputs/apk/offline
+            echo ">>./app/build/outputs/apk/offline/release:"
+            ls -la ./app/build/outputs/apk/offline/release
+            exit 1
+
+#./app/build/outputs/apk/offline/release/yuyanIme_offline_release.apk
 
 #      # 第六步：构建APK
 #      - name: Build APK for ${{ matrix.flavor_type }}
@@ -143,8 +157,6 @@ jobs:
             echo ">>错误: 未找到APK文件: $src_file"
             exit 1
           fi
-
-#./app/build/outputs/apk/offline/release/yuyanIme_offline_release.apk
 
       # 第九步：上传APK
       - name: Upload  APK
