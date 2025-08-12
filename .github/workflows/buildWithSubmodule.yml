@@ -164,7 +164,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body_path: ${{ env.MAIN_REPO_DIR }}/changelog/${{ env.TAG_VERSION_NAME }}/README.md
-          # tag_name: ${{ env.TAG_VERSION_NAME }}
-          tag_name: ${{ github.ref_name }}
+          tag_name: ${{ env.TAG_VERSION_NAME }}
+          # tag_name: ${{ github.ref_name }}
           files: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
           token: ${{ secrets.GITHUB_TOKEN }}
