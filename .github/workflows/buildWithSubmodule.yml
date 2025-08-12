@@ -88,6 +88,22 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      # 缓存 Android SDK
+      - name: Cache Android SDK
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Android/Sdk
+          key: ${{ runner.os }}-android-sdk-${{ hashFiles('** /build.gradle') }}
+
+      # 缓存构建输出
+      - name: Cache build outputs
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ env.MAIN_REPO_DIR }}/app/build
+          key: ${{ runner.os }}-build-outputs-${{ github.sha }}
+
       # 第五步：准备构建环境
       - name: Grant execute permission for gradlew
         working-directory: ${{ env.MAIN_REPO_DIR }}
