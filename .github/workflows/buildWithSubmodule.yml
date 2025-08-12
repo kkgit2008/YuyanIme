@@ -120,16 +120,13 @@ jobs:
             echo ">>${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
             ls -la ${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
 
-      # 第七步：获取版本信息
-      - name: Get release TAG_VERSION_NAME
-        # working-directory: ${{ env.MAIN_REPO_DIR }}
+      # 第七步：获取版本信息（使用当前时间作为版本号）
+      - name: Set release TAG_VERSION_NAME
         id: get_version_info
         run: |
-          if [ -f "$src_file" ]; then
-            TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" build.gradle | awk '{print $4}' | tr -d '"')
-          else
-            TAG_VERSION_NAME=$(grep "val TAG_VERSION_NAME =" ${{ env.MAIN_REPO_DIR }}/app/build.gradle | awk '{print $4}' | tr -d '"')
-          fi
+          # 获取当前时间，格式为YYYYMMDD.HH（年-月-日-时）
+          #TAG_VERSION_NAME=$(date +"%Y%m%d.%H")
+          TAG_VERSION_NAME=$(date +"%Y%m%d")
           echo ">>TAG_VERSION_NAME=${TAG_VERSION_NAME}" >> $GITHUB_ENV
           echo ">>当前版本: ${TAG_VERSION_NAME}"
 
