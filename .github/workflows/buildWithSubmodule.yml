@@ -120,13 +120,13 @@ jobs:
 
 #./app/build/outputs/apk/offline/release/yuyanIme_offline_release.apk
 
-#      # 第六步：构建APK
-#      - name: Build APK for ${{ matrix.flavor_type }}
-#        # working-directory: ${{ env.MAIN_REPO_DIR }}
-#        run: |
-#          build_type=${{ matrix.build_type }}
-#          flavor_type=${{ matrix.flavor_type }}
-#          ./gradlew assemble${flavor_type^}${build_type^}
+      # 第六步：构建APK
+      - name: Build APK for ${{ matrix.flavor_type }}
+        # working-directory: ${{ env.MAIN_REPO_DIR }}
+        run: |
+          build_type=${{ matrix.build_type }}
+          flavor_type=${{ matrix.flavor_type }}
+          ./gradlew assemble${flavor_type^}${build_type^}
 
       - name: Show apk paths
         run: |
