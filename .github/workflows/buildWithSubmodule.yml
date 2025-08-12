@@ -44,7 +44,6 @@ jobs:
       - name: Clean workspace
         run: |
           rm -rf ${{ env.MAIN_REPO_DIR }}/*
-          exit 1
 
       # 第一步：检出主仓库 (username/repo@branch)
       - name: Checkout Main Repository
@@ -109,6 +108,13 @@ jobs:
           flavor_type=${{ matrix.flavor_type }}
           ./gradlew assemble${flavor_type^}${build_type^}
 
+      - name: Generate SHA256 checksums
+        working-directory: ${{ env.ANDROID_DIR }}
+        run: |
+          find ${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk -name '*.apk' | while read apk; do
+            sha256sum "$apk" > "${apk}.sha256"
+          done
+
       - name: Show project paths
         run: |
             echo ">>project root:"
@@ -127,7 +133,7 @@ jobs:
             ls -la ./app/build/outputs/apk/${{ matrix.flavor_type }}
             echo ">>./app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}:"
             ls -la ./app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}
-            exit 1
+#            exit 1
 
       # 第七步：获取版本信息（使用当前时间作为版本号）
       - name: Set release TAG_VERSION_NAME
@@ -161,6 +167,7 @@ jobs:
           name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
           path: |
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
+            ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
 
       # 第十步：发布到GitHub Release
       - name: Publish Release
@@ -171,5 +178,7 @@ jobs:
           body_path: ${{ env.MAIN_REPO_DIR }}/changelog/${{ env.TAG_VERSION_NAME }}/README.md
           tag_name: ${{ env.TAG_VERSION_NAME }}
           # tag_name: ${{ github.ref_name }}
-          files: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
+          files: |
+            yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
+            yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
           token: ${{ secrets.GITHUB_TOKEN }}
