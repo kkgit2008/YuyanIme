@@ -112,9 +112,10 @@ jobs:
       - name: Build APK for ${{ matrix.flavor_type }}
         # working-directory: ${{ env.MAIN_REPO_DIR }}
         run: |
-          build_type=${{ matrix.build_type }}
-          flavor_type=${{ matrix.flavor_type }}
-          ./gradlew assemble${flavor_type^}${build_type^}
+#          build_type=${{ matrix.build_type }}
+#          flavor_type=${{ matrix.flavor_type }}
+#          ./gradlew assemble${flavor_type^}${build_type^}
+          ./gradlew assemble${{ matrix.flavor_type }}${{ matrix.build_type }}
 
       - name: Show apk paths
         run: |
@@ -152,9 +153,9 @@ jobs:
       - name: Upload  APK
         uses: actions/upload-artifact@v4
         with:
-          name: yuyanIme_${matrix.flavor_type}_${matrix.build_type}.apk
+          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
           path: |
-            ${{ env.MAIN_REPO_DIR }}/yuyanIme_${matrix.flavor_type}_${matrix.build_type}.apk
+            ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
 
       # 第十步：发布到GitHub Release
       - name: Publish Release
@@ -165,5 +166,5 @@ jobs:
           body_path: ${{ env.MAIN_REPO_DIR }}/changelog/${{ env.TAG_VERSION_NAME }}/README.md
           # tag_name: ${{ env.TAG_VERSION_NAME }}
           tag_name: ${{ github.ref_name }}
-          files: yuyanIme_${matrix.flavor_type}_${matrix.build_type}.apk
+          files: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
           token: ${{ secrets.GITHUB_TOKEN }}
