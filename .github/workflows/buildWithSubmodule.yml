@@ -170,6 +170,21 @@ jobs:
             exit 1
           fi
 
+      # 第八步：复制sha256文件
+      - name: Copy ${{ matrix.flavor }} APK.sha256
+        run: |
+          src_file="${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256"
+          dest_file="${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256"
+
+          if [ -f "$src_file" ]; then
+            cp "$src_file" "$dest_file"
+            echo ">>sha256已复制并重命名为: $dest_file"
+            ls -la
+          else
+            echo ">>错误: 未找到sha256文件: $src_file"
+            exit 1
+          fi
+
       # 第九步：上传APK
       - name: Upload  APK
         uses: actions/upload-artifact@v4
