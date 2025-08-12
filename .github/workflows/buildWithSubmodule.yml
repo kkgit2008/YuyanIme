@@ -156,7 +156,7 @@ jobs:
           echo ">>当前版本: ${TAG_VERSION_NAME}"
 
       # 第八步：复制APK文件
-      - name: Copy ${{ matrix.flavor }} APK
+      - name: Copy ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK
         run: |
           src_file="${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk"
           dest_file="${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk"
@@ -171,7 +171,7 @@ jobs:
           fi
 
       # 复制sha256文件
-      - name: Copy ${{ matrix.flavor }} APK.sha256
+      - name: Copy ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK.sha256
         run: |
           src_file="${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256"
           dest_file="${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256"
@@ -186,7 +186,7 @@ jobs:
           fi
 
       # 第九步：上传APK
-      - name: Upload  APK
+      - name: Upload ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
           name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
