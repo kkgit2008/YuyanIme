@@ -47,7 +47,7 @@ jobs:
           repository: ${{ env.MAIN_NAME }}
           ref: ${{ env.MAIN_REPO_BRANCH }}
           path: ${{ env.MAIN_REPO_DIR }}
-          submodules: true
+#          submodules: true
 
       # 第二步：检出依赖仓库 (username/repo2@branch2)
       - name: Checkout sub Repository
@@ -75,7 +75,7 @@ jobs:
           CURRENT_DEP_BRANCH=$(git branch --show-current)
           if [ "$CURRENT_DEP_BRANCH" != "$DEPENDENCY_REPO_BRANCH" ]; then
             echo ">>错误：依赖仓库分支不匹配！预期: $DEPENDENCY_REPO_BRANCH，实际: $CURRENT_DEP_BRANCH"
-#            exit 1
+            exit 1
           fi
           
           echo ">>目录结构验证通过"
@@ -97,7 +97,7 @@ jobs:
 
       # 第六步：构建APK
       - name: Build APK for ${{ matrix.flavor_type }}_${{ matrix.build_type }}
-        # working-directory: ${{ env.MAIN_REPO_DIR }}
+        working-directory: ${{ env.MAIN_REPO_DIR }}
         run: |
           build_type=${{ matrix.build_type }}
           flavor_type=${{ matrix.flavor_type }}
@@ -135,8 +135,7 @@ jobs:
         id: get_version_info
         run: |
           # 获取当前时间，格式为YYYYMMDD.HH（年-月-日-时）
-          #TAG_VERSION_NAME=$(date +"%Y%m%d.%H")
-          TAG_VERSION_NAME=$(date +"%Y%m%d")
+          TAG_VERSION_NAME=$(date +"%Y%m%d.%H%M")
           echo ">>TAG_VERSION_NAME=${TAG_VERSION_NAME}" >> $GITHUB_ENV
           echo ">>当前版本: ${TAG_VERSION_NAME}"
 
