@@ -4,10 +4,6 @@ on:
   push:
     tags:
       - v*
-    branches:
-      - '**'
-#  pull_request:
-    # branches: [ "master" ]
   workflow_dispatch: { }
 
 env:
@@ -112,10 +108,10 @@ jobs:
       - name: Build APK for ${{ matrix.flavor_type }}
         # working-directory: ${{ env.MAIN_REPO_DIR }}
         run: |
-#          build_type=${{ matrix.build_type }}
-#          flavor_type=${{ matrix.flavor_type }}
-#          ./gradlew assemble${flavor_type^}${build_type^}
-          ./gradlew assemble${{ matrix.flavor_type }}${{ matrix.build_type }}
+          build_type=${{ matrix.build_type }}
+          flavor_type=${{ matrix.flavor_type }}
+          ./gradlew assemble${flavor_type^}${build_type^}
+#          ./gradlew assemble${{ matrix.flavor_type }}${{ matrix.build_type }}
 
       - name: Show apk paths
         run: |
