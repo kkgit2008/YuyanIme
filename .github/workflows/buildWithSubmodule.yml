@@ -135,7 +135,7 @@ jobs:
       - name: Copy ${{ matrix.flavor }} APK
         run: |
           src_file="${{ env.MAIN_REPO_DIR }}/app/build/outputs/apk/${{ matrix.flavor_type }}/${{ matrix.build_type }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk"
-          #dest_file="${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk"
+          dest_file="${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk"
 
           if [ -f "$src_file" ]; then
             cp "$src_file" "$dest_file"
