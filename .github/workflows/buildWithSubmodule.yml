@@ -32,8 +32,9 @@ jobs:
       # 矩阵功能
       matrix:
 #        build_type: ['debug', 'release']
+#        flavor_type: [ offline, online ]
         build_type: ['release']
-        flavor_type: [ offline, online ]
+        flavor_type: [ offline ]
 
     steps:
       - name: Cancel previous runs
