@@ -190,8 +190,8 @@ jobs:
       - name: Upload ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         env:
-          # 获取当前时间，格式为YYYYMMDDHHmm
-          CURRENT_TIME: ${{ format('{0:yyyyMMddHHmm}', github.event.repository.updated_at) }}
+          # 获取当前时间，格式为YYYYMMDDHH
+          CURRENT_TIME: ${{ format('{0:yyyyMMddHH}', github.event.repository.updated_at) }}
         with:
           name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}-${{ env.CURRENT_TIME }}.zip
           path: |
