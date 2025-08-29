@@ -10,6 +10,5 @@ gradlew
 gradlew.bat
 gradle/wrapper/
 *.jks
-keystore/keystore.properties
 /.kotlin
 *.log
