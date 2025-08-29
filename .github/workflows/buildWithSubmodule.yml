@@ -81,10 +81,11 @@ jobs:
           echo ">>目录结构验证通过"
 
       # 第四步：设置JDK环境
-      - name: set up JDK 21
+      - name: set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          # java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
