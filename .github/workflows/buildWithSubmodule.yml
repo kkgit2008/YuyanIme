@@ -189,8 +189,11 @@ jobs:
       # 第九步：上传APK
       - name: Upload ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
+        env:
+          # 获取当前时间，格式为YYYYMMDDHHmm
+          CURRENT_TIME: ${{ format('{0:yyyyMMddHHmm}', github.event.repository.updated_at) }}
         with:
-          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.zip
+          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}-${{ env.CURRENT_TIME }}.zip
           path: |
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
