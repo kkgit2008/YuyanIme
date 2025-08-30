@@ -195,7 +195,7 @@ jobs:
       - name: Upload ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
-          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}-${{ env.TIMESTAMP }}.zip
+          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}-${{ env.TIMESTAMP }}
           path: |
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
