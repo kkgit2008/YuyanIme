@@ -186,11 +186,16 @@ jobs:
             exit 1
           fi
 
+# 生成构建时间戳
+      - name: Generate build timestamp
+        id: timestamp
+        run: echo "TIMESTAMP=$(date +'%Y%m%d%H')" >> $GITHUB_ENV
+
       # 第九步：上传APK
       - name: Upload ${{ matrix.flavor_type }}_${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
-          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}-${{ format('{0:yyyyMMddHH}', github.run_at) }}.zip
+          name: yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}-${{ env.TIMESTAMP }}.zip
           path: |
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
