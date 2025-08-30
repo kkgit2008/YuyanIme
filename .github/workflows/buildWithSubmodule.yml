@@ -12,10 +12,10 @@ env:
   MAIN_NAME: 'kkgit2008/YuyanIme' 
   DEPENDENCY_NAME: 'kkgit2008/yuyansdk'
 
-  MAIN_REPO_BRANCH: 'master'
-  # 当前仓库分支
-  DEPENDENCY_REPO_BRANCH: 'master'
-  # 外部仓库分支
+  MAIN_REPO_BRANCH: 'r250813'
+  # yuyanime仓库分支
+  DEPENDENCY_REPO_BRANCH: 'r250813'
+  # yuyansdk仓库分支
 
   MAIN_REPO_DIR: '.'
   # 将当前仓库检出到临时仓库的目录
