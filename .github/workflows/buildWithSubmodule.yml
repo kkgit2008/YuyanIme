@@ -12,9 +12,9 @@ env:
   MAIN_NAME: 'kkgit2008/YuyanIme' 
   DEPENDENCY_NAME: 'kkgit2008/yuyansdk'
 
-  MAIN_REPO_BRANCH: 'rebuild'
+  MAIN_REPO_BRANCH: 'rebuild_250816'
   # 当前仓库分支
-  DEPENDENCY_REPO_BRANCH: 'rebuild'
+  DEPENDENCY_REPO_BRANCH: 'rebuild_250816'
   # 外部仓库分支
 
   MAIN_REPO_DIR: '.'
