@@ -1,12 +1,8 @@
-name: Build with yuyansdk & Publish APK
+name: Build with yuyansdk
 
 on:
-  push:
-    tags:
-      - v*
-    branches:
-      - '**'
   workflow_dispatch: { }
+  ### 只能手动开启构建
 
 env:
   MAIN_NAME: 'kkgit2008/YuyanIme' 
@@ -200,16 +196,3 @@ jobs:
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
             ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
 
-      # 第十步：发布到GitHub Release
-      - name: Publish Release
-        if: startsWith(github.ref, 'refs/tags/')
-        # 仅在有tag时发布
-        uses: softprops/action-gh-release@v2
-        with:
-          body_path: ${{ env.MAIN_REPO_DIR }}/changelog/${{ env.TAG_VERSION_NAME }}/README.md
-          tag_name: ${{ env.TAG_VERSION_NAME }}
-          # tag_name: ${{ github.ref_name }}
-          files: |
-            ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk
-            ${{ env.MAIN_REPO_DIR }}/yuyanIme_${{ matrix.flavor_type }}_${{ matrix.build_type }}.apk.sha256
-          token: ${{ secrets.GITHUB_TOKEN }}
